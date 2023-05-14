@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("/api")
+@RequestMapping("/exams")
 @RestController
 @AllArgsConstructor
 public class ExamController {
@@ -21,7 +21,7 @@ public class ExamController {
     private ExamMapper examMapper;
 
 
-    @GetMapping("/exams")
+    @GetMapping("/list/paginated")
     public ResponseEntity<List<ExamDTO>> getExams(Pageable pageable) {
         return ResponseEntity.ok(examMapper.toDTO(examService.listExams(pageable)));
     }
