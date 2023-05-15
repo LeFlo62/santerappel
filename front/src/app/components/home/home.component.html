@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="filters">
+        <form [formGroup]="sorting">
+            <p-dropdown [options]="sortRating" formControlName="rating" optionLabel="label" placeholder="Tri de ?" [showClear]="true"></p-dropdown>
+        </form>
+    </div>
+    <div class="exam-list">
+        <div class="exam-item" *ngFor="let exam of examList" [routerLink]="'/exam/' + exam?.id">
+            <div *ngIf="exam; else exam_skeleton">
+                <p class="exam-name">{{exam.name}}</p>
+                <p class="exam-description">{{exam.description}}</p>
+            </div>
+            <ng-template #exam_skeleton>
+                
+            </ng-template>
+        </div>
+    </div>
+</div>
