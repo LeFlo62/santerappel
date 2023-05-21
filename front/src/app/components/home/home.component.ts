@@ -17,33 +17,21 @@ export class HomeComponent {
   page : number = 0;
   hasElementsLeft : boolean = true;
 
-  ages : any[] = [
-   "1 mois",
-   "2 mois",
-   "2-7 mois",
-   "4 mois",
-   "5 mois",
-   "11 mois",
-   "12 mois",
-   "16-18 mois",
-   "18 mois",
-   "5 ans",
-   "6 ans",
-   "11-13 ans",
-   "14 ans",
-   "65 ans"
-  ];
+  ages : any[] = [];
+  countries : any[] = [];
 
   isVaccine : any[] = [
     { label: 'Oui', value: true },
     { label: 'Non', value: false }
   ];
 
-  filters : FormGroup = new FormGroup({ age: new FormControl(), vaccine : new FormControl() });
+  filters : FormGroup = new FormGroup({ age: new FormControl(), vaccine : new FormControl(), countries : new FormControl() });
 
   constructor(private examService : ExamService) { }
 
   ngOnInit(): void {
+    this.loadFilters();
+
     this.loadMoreExams();
 
     this.filters.valueChanges.subscribe(data => {
@@ -54,13 +42,23 @@ export class HomeComponent {
     });
   }
 
+  loadFilters() {
+    this.examService.getAges().subscribe((data : string[]) => {
+      this.ages = data;
+    });
+
+    this.examService.getCountries().subscribe((data : string[]) => {
+      this.countries = data;
+    });
+  }
+
   loadMoreExams() {
     if(this.hasElementsLeft){
       this.examList.push(...Array(HomeComponent.PAGE_SIZE));
 
       let filterStr = "";
 
-      if(this.filters.value.age != null) {
+      if(this.filters.value.age != null && this.filters.value.age.length > 0) {
         filterStr += "age:" + this.filters.value.age.join(",age:");
       }
 
@@ -68,8 +66,11 @@ export class HomeComponent {
         filterStr += "isVaccine:" + this.filters.value.vaccine.value;
       }
 
-      this.examService.getPagedExams(this.page, HomeComponent.PAGE_SIZE, filterStr).subscribe(
-        (data) => {
+      if(this.filters.value.countries != null && this.filters.value.countries.length > 0) {
+        filterStr += "countryList:" + this.filters.value.countries.join(",countryList:");
+      }
+
+      this.examService.getPagedExams(this.page, HomeComponent.PAGE_SIZE, filterStr).subscribe((data : ExamListItem[]) => {
           for(let i = 0; i < data.length; i++) {
             this.examList[this.page * HomeComponent.PAGE_SIZE + i] = data[i];
           }
