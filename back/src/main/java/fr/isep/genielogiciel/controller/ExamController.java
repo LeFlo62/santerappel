@@ -38,4 +38,14 @@ public class ExamController {
         return ResponseEntity.ok(examMapper.toDTO(examService.listExams(filters, pageable)));
     }
 
+    @GetMapping("/ages")
+    public ResponseEntity<List<String>> getAges(){
+        return ResponseEntity.ok(examService.getAges());
+    }
+
+    @GetMapping("/countries")
+    public ResponseEntity<List<String>> getCountries(){
+        return ResponseEntity.ok(examService.getCountries());
+    }
+
 }

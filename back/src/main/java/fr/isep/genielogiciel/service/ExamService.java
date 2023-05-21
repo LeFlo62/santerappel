@@ -19,4 +19,11 @@ public class ExamService {
         return examRepository.filter(filters, pageable).getContent();
     }
 
+    public List<String> getAges() {
+        return examRepository.findDistinctAge();
+    }
+
+    public List<String> getCountries() {
+        return examRepository.findDistinctCountryNames();
+    }
 }
