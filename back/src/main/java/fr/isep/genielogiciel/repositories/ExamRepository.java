@@ -6,5 +6,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ExamRepository extends MongoRepository<Exam, String>, PagingAndSortingRepository<Exam, String> {
+public interface ExamRepository extends MongoRepository<Exam, String>, PagingAndSortingRepository<Exam, String>, ExamCustomRepository {
+
+
+
 }

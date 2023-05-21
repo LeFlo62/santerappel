@@ -16,7 +16,7 @@ export class ExamService {
   public getPagedExams(page : number, pageSize : number, sorting : string = "") : Observable<ExamListItem[]> {
     let sortString = "";
     if (sorting != "") {
-      sortString = "&sort=" + sorting;
+      sortString = "&filter=" + sorting;
     }
     return this.http.get<ExamListItem[]>(this.url + "/list/paginated?page=" + page + "&size=" + pageSize + sortString);
   }

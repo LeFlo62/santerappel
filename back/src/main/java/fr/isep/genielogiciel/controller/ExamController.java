@@ -6,10 +6,14 @@ import fr.isep.genielogiciel.service.ExamService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping("/exams")
@@ -22,8 +26,16 @@ public class ExamController {
 
 
     @GetMapping("/list/paginated")
-    public ResponseEntity<List<ExamDTO>> getExams(Pageable pageable) {
-        return ResponseEntity.ok(examMapper.toDTO(examService.listExams(pageable)));
+    public ResponseEntity<List<ExamDTO>> getExams(@RequestParam(value="filter", required = false) String filter, Pageable pageable) {
+        MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
+        if(filter != null){
+            String[] entries = filter.split(",");
+            for(int i = 0; i < entries.length; ++i){
+                String[] entry = entries[i].split(":");
+                filters.add(entry[0], entry[1]);
+            }
+        }
+        return ResponseEntity.ok(examMapper.toDTO(examService.listExams(filters, pageable)));
     }
 
 }

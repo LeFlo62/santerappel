@@ -10,37 +10,43 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HomeComponent {
 
-  private static readonly PAGE_SIZE : number = 12;
+  private static readonly PAGE_SIZE : number = 10;
 
-  examList : ExamListItem[] = [
-    {
-      id: "1",
-      name: "Examen de la prostate",
-      description: "Cet examen permet de détecter le cancer de la prostate"
-    },
-    {
-      id: "2",
-      name: "Examen de la vésicule biliaire",
-      description: "Cet examen permet de détecter le cancer de la vésicule biliaire"
-    }
-  ];
+  examList : ExamListItem[] = [];
 
   page : number = 0;
   hasElementsLeft : boolean = true;
 
-  sortRating : any[] = [
-    { label: 'Note croissante', value: 'asc' },
-    { label: 'Note décroissante', value: 'desc' }
+  ages : any[] = [
+   "1 mois",
+   "2 mois",
+   "2-7 mois",
+   "4 mois",
+   "5 mois",
+   "11 mois",
+   "12 mois",
+   "16-18 mois",
+   "18 mois",
+   "5 ans",
+   "6 ans",
+   "11-13 ans",
+   "14 ans",
+   "65 ans"
   ];
 
-  sorting : FormGroup = new FormGroup({ rating: new FormControl() });
+  isVaccine : any[] = [
+    { label: 'Oui', value: true },
+    { label: 'Non', value: false }
+  ];
+
+  filters : FormGroup = new FormGroup({ age: new FormControl(), vaccine : new FormControl() });
 
   constructor(private examService : ExamService) { }
 
   ngOnInit(): void {
     this.loadMoreExams();
 
-    this.sorting.valueChanges.subscribe(data => {
+    this.filters.valueChanges.subscribe(data => {
       this.page = 0;
       this.hasElementsLeft = true;
       this.examList = [];
@@ -52,13 +58,17 @@ export class HomeComponent {
     if(this.hasElementsLeft){
       this.examList.push(...Array(HomeComponent.PAGE_SIZE));
 
-      let sortingStr = "";
+      let filterStr = "";
 
-      if(this.sorting.value.rating != null) {
-        sortingStr = "rating," + this.sorting.value.rating.value;
+      if(this.filters.value.age != null) {
+        filterStr += "age:" + this.filters.value.age.join(",age:");
       }
 
-      this.examService.getPagedExams(this.page, HomeComponent.PAGE_SIZE, sortingStr).subscribe(
+      if(this.filters.value.vaccine != null) {
+        filterStr += "isVaccine:" + this.filters.value.vaccine.value;
+      }
+
+      this.examService.getPagedExams(this.page, HomeComponent.PAGE_SIZE, filterStr).subscribe(
         (data) => {
           for(let i = 0; i < data.length; i++) {
             this.examList[this.page * HomeComponent.PAGE_SIZE + i] = data[i];
