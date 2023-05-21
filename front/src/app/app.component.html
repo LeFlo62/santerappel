@@ -2,5 +2,11 @@
     <ng-template pTemplate="start">
         <img src="favicon.ico" height="40" class="mr-2" />
     </ng-template>
+    <ng-template pTemplate="end">
+      <div class="certified-info" [routerLink]="'/certified-info'">
+        <p>Informations certifiées</p>
+        <img src="../assets/sante-publique.png" height="40" />
+      </div>
+    </ng-template>
   </p-menubar>
 <router-outlet></router-outlet>

@@ -1,0 +1,10 @@
+.certified-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    > * {
+        margin: 0 10px;
+    }
+}

@@ -13,11 +13,13 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SkeletonModule } from 'primeng/skeleton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CertifiedInfoComponent } from './components/certified-info/certified-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CertifiedInfoComponent
   ],
   imports: [
     BrowserModule,
