@@ -6,6 +6,14 @@
 
 .filters{
     width: 70%;
+    margin: 10px 0;
+
+    form{
+        > * {
+            margin: 10px;
+        }
+    }
+
 }
 
 .exam-list {
@@ -16,7 +24,11 @@
     width: 70%;
 
     .exam-item{
+<<<<<<< HEAD
         max-width: 800px;
+=======
+        width: 100%;
+>>>>>>> 611bdbd6459b46de2a27399e2a8b46664baa707b
         margin: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -32,6 +44,8 @@
         }
 
         .exam-name{
+            width: 100%;
+            display: inline-block;
             margin: 0;
             padding: 10px;
             font-size: 20px;

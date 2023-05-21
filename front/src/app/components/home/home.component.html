@@ -1,7 +1,14 @@
 <div class="container">
     <div class="filters">
-        <form [formGroup]="sorting">
-            <p-dropdown [options]="sortRating" formControlName="rating" optionLabel="label" placeholder="Tri de ?" [showClear]="true"></p-dropdown>
+        <form [formGroup]="filters">
+            <p-multiSelect [options]="ages" formControlName="age" placeholder="Age" [showClear]="true"></p-multiSelect>
+            <p-dropdown [options]="isVaccine" optionLabel="label" formControlName="vaccine" placeholder="Vaccin" [showClear]="true">
+                <ng-template pTemplate="selectedItem">
+                    <div *ngIf="filters.value.vaccine">
+                        <div>Vaccin : {{ filters.value.vaccine.label }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
         </form>
     </div>
     <div class="exam-list">
@@ -11,7 +18,11 @@
                 <p class="exam-description">{{exam.description}}</p>
             </div>
             <ng-template #exam_skeleton>
-                
+                <p-skeleton class="exam-name" width="10rem" styleClass="mb-2"></p-skeleton>
+                <div class="exam-description">
+                    <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width="10rem" height="4rem"></p-skeleton>
+                </div>
             </ng-template>
         </div>
     </div>
