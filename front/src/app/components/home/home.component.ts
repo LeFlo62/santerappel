@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HomeComponent {
 
-  private static readonly PAGE_SIZE : number = 20;
+  private static readonly PAGE_SIZE : number = 12;
 
   examList : ExamListItem[] = [
     {
@@ -49,7 +49,6 @@ export class HomeComponent {
   }
 
   loadMoreExams() {
-    return;
     if(this.hasElementsLeft){
       this.examList.push(...Array(HomeComponent.PAGE_SIZE));
 
@@ -59,7 +58,7 @@ export class HomeComponent {
         sortingStr = "rating," + this.sorting.value.rating.value;
       }
 
-      this.examService.getPagedHousing(this.page, HomeComponent.PAGE_SIZE, sortingStr).subscribe(
+      this.examService.getPagedExams(this.page, HomeComponent.PAGE_SIZE, sortingStr).subscribe(
         (data) => {
           for(let i = 0; i < data.length; i++) {
             this.examList[this.page * HomeComponent.PAGE_SIZE + i] = data[i];

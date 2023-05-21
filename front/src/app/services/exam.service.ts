@@ -13,7 +13,7 @@ export class ExamService {
 
   constructor(private http : HttpClient) { }
 
-  public getPagedHousing(page : number, pageSize : number, sorting : string = "") : Observable<ExamListItem[]> {
+  public getPagedExams(page : number, pageSize : number, sorting : string = "") : Observable<ExamListItem[]> {
     let sortString = "";
     if (sorting != "") {
       sortString = "&sort=" + sorting;
