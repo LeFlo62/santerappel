@@ -48,24 +48,38 @@
 
         &:hover{
             transform: scale(1.02);
-            cursor: pointer;
+        }
+
+        p,h3,h4 {
+            margin: 0;
         }
 
         .exam-name{
             width: 100%;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin: 0;
             padding: 10px;
             font-size: 20px;
             font-weight: bold;
             background-color: #307abe;
             color: white;
+            vertical-align: middle;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            > * {
+                display: inline;
+            }
         }
 
         .exam-description{
             margin: 0;
             padding: 10px;
             font-size: 16px;
+
         }
 
     }

@@ -22,10 +22,65 @@
         </form>
     </div>
     <div class="exam-list">
-        <div class="exam-item" *ngFor="let exam of examList" [routerLink]="'/exam/' + exam?.id">
+        <div class="exam-item" *ngFor="let exam of examList">
             <div *ngIf="exam; else exam_skeleton">
-                <p class="exam-name">{{exam.name}}</p>
-                <p class="exam-description">{{exam.description}}</p>
+                <div class="exam-name" (click)="exam.isExpanded = !exam.isExpanded">
+                    <p>{{exam.name}}</p>
+                    <i style="margin-left: auto" class="pi pi-chevron-down" *ngIf="exam.isExpanded"></i>
+                    <i style="margin-left: auto" class="pi pi-chevron-up" *ngIf="!exam.isExpanded"></i>
+                </div>
+                <div class="exam-description">
+                    <p *ngIf="!exam.isExpanded else details" (click)="exam.isExpanded = !exam.isExpanded">{{exam.description}}</p>
+                    <ng-template #details>
+                        <p-divider align="left"><h3>Résumé</h3></p-divider>
+                        <p>{{exam.description}}</p>
+                        <div *ngIf="exam.bigDescription">
+                            <p-divider align="left"><h3>Description</h3></p-divider>
+                            <p>{{exam.bigDescription}}</p>
+                        </div>
+                        <div *ngIf="exam.personalBackground">
+                            <p-divider align="left"><h3>Antécédents personnels</h3></p-divider>
+                            <p>{{exam.personalBackground}}</p>
+                        </div>
+                        <div *ngIf="exam.familyBackground">
+                            <p-divider align="left"><h3>Antécédents familiaux</h3></p-divider>
+                            <p>{{exam.familyBackground}}</p>
+                        </div>
+                        <div>
+                            <p-divider align="left"><h3>Informations générales</h3></p-divider>
+                            <div class="flex">
+                                <div class="w-6">
+                                    <h4 style="text-align: center;">Sex</h4>
+                                    <li *ngFor="let sex of exam.sex">
+                                        {{sex == 'M' ? 'Homme' : 'Femme'}}
+                                    </li>
+                                </div>
+                                <p-divider layout="vertical"></p-divider>
+                                <div class="w-6">
+                                    <h4 style="text-align: center;">Est-ce que c'est un Vaccin ?</h4>
+                                    {{exam.isVaccine ? 'Oui' : 'Non'}}
+                                </div>
+                                
+                            </div>
+                            <div class="w-6" style="margin: 20px auto"><p-divider></p-divider></div>
+                            <div class="flex">
+                                <div class="w-6">
+                                    <h4 style="text-align: center;">Âges</h4>
+                                    <li *ngFor="let age of exam.age">
+                                        {{age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'}}
+                                    </li>
+                                </div>
+                                <p-divider layout="vertical"></p-divider>
+                                <div class="w-6">
+                                    <h4 style="text-align: center;">Pays</h4>
+                                    <li *ngFor="let country of exam.countryList">
+                                        {{country}}
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
             </div>
             <ng-template #exam_skeleton>
                 <p-skeleton class="exam-name" width="10rem" styleClass="mb-2"></p-skeleton>

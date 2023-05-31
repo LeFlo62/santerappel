@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CertifiedInfoComponent } from './components/certified-info/certified-info.component';
 import { InplaceModule } from 'primeng/inplace';
+import { DividerModule } from 'primeng/divider';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { InplaceModule } from 'primeng/inplace';
     SkeletonModule,
     DropdownModule,
     MultiSelectModule,
-    InplaceModule
+    InplaceModule,
+    DividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
