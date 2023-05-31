@@ -26,4 +26,8 @@ public class ExamService {
     public List<String> getCountries() {
         return examRepository.findDistinctCountryNames();
     }
+
+    public List<String> getRecommendation(){
+        return examRepository.findDistinctRecommendation();
+    }
 }

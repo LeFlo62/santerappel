@@ -12,6 +12,8 @@ export class HomeComponent {
 
   private static readonly PAGE_SIZE : number = 10;
 
+  display = false;
+
   examList : ExamListItem[] = [];
 
   page : number = 0;
@@ -19,13 +21,25 @@ export class HomeComponent {
 
   ages : any[] = [];
   countries : any[] = [];
+  recommendations : any[] = [];
 
   isVaccine : any[] = [
     { label: 'Oui', value: true },
     { label: 'Non', value: false }
   ];
 
-  filters : FormGroup = new FormGroup({ age: new FormControl(), vaccine : new FormControl(), countries : new FormControl() });
+  sex : any[] = [
+    { label: 'Homme', value: 'M' },
+    { label: 'Femme', value: 'F' }
+  ];
+
+  filters : FormGroup = new FormGroup({
+    age: new FormControl(),
+    vaccine : new FormControl(),
+    countries : new FormControl(),
+    recommendation : new FormControl(),
+    sex : new FormControl(),
+  });
 
   constructor(private examService : ExamService) { }
 
@@ -50,6 +64,10 @@ export class HomeComponent {
     this.examService.getCountries().subscribe((data : string[]) => {
       this.countries = data;
     });
+
+    this.examService.getRecommendations().subscribe((data : any[]) => {
+      this.recommendations = data;
+    });
   }
 
   loadMoreExams() {
@@ -60,6 +78,14 @@ export class HomeComponent {
 
       if(this.filters.value.age != null && this.filters.value.age.length > 0) {
         filterStr += "age:" + this.filters.value.age.join(",age:");
+      }
+
+      if(this.filters.value.recommendation != null && this.filters.value.recommendation.length > 0) {
+        filterStr += "recommendation:" + this.filters.value.recommendation.join(",recommendation:");
+      }
+
+      if(this.filters.value.sex != null && this.filters.value.sex.length > 0) {
+        filterStr += "sex:" + this.filters.value.sex.join(",sex:");
       }
 
       if(this.filters.value.vaccine != null) {

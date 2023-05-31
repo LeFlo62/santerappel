@@ -29,4 +29,8 @@ export class ExamService {
   public getCountries() :Observable<string[]> {
     return this.http.get<string[]>(this.url + "/countries");
   }
+
+  public getRecommendations() :Observable<string[]> {
+    return this.http.get<string[]>(this.url + "/recommendations");
+  }
 }

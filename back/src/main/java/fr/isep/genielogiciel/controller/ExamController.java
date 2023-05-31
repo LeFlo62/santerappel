@@ -48,4 +48,9 @@ public class ExamController {
         return ResponseEntity.ok(examService.getCountries());
     }
 
+    @GetMapping("/recommendations")
+    public ResponseEntity<List<String>> getRecommendations(){
+        return ResponseEntity.ok(examService.getRecommendation());
+    }
+
 }

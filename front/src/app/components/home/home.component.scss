@@ -5,12 +5,24 @@
 }
 
 .filters{
+    display: flex;
+    flex-direction: row;
     width: 70%;
     margin: 10px 0;
 
+    .new-line{
+        flex-basis: 100%;
+    }
+
+    span{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
     form{
-        > * {
+        > *:not(div), > div * {
             margin: 10px;
+            display: inline-block;
         }
     }
 

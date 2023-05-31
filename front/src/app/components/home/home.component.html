@@ -1,7 +1,7 @@
 <div class="container">
     <div class="filters">
         <form [formGroup]="filters">
-            <p-multiSelect [options]="ages" formControlName="age" placeholder="Age" [showClear]="true"></p-multiSelect>
+            <p-multiSelect [options]="ages" formControlName="age" placeholder="Age" [showClear]="true" [filter]="true"></p-multiSelect>
             <p-dropdown [options]="isVaccine" optionLabel="label" formControlName="vaccine" placeholder="Vaccin" [showClear]="true">
                 <ng-template pTemplate="selectedItem">
                     <div *ngIf="filters.value.vaccine">
@@ -10,6 +10,15 @@
                 </ng-template>
             </p-dropdown>
             <p-multiSelect [options]="countries" formControlName="countries" placeholder="Pays" [filter]="true" [showClear]="true"></p-multiSelect>
+            
+            <span *ngIf="!display else showMore" (click)="display = true">Afficher plus</span>
+            <ng-template #showMore>
+                <div class="new-line">
+                    <p-multiSelect class="filterElement" [options]="recommendations" formControlName="recommendation" placeholder="Recommendations" [showClear]="true" [filter]="true"></p-multiSelect>
+                    <p-multiSelect class="filterElement" [options]="sex" formControlName="sex" placeholder="Sex" optionLabel="label" optionValue="value" [showClear]="true" [filter]="false"></p-multiSelect>
+                    <span (click)="display = false">Afficher moins</span>
+                </div>
+            </ng-template>
         </form>
     </div>
     <div class="exam-list">

@@ -25,4 +25,11 @@ public interface ExamRepository extends MongoRepository<Exam, String>, PagingAnd
     })
     List<String> findDistinctAge();
 
+    @Aggregation(pipeline = {
+            "{$unwind: '$recommendation'}",
+            "{$group: {_id: '$recommendation'}}",
+            "{$project: {country: '$_id', _id: 0}}"
+    })
+    List<String> findDistinctRecommendation();
+
 }

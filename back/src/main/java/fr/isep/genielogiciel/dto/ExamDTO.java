@@ -12,11 +12,15 @@ import java.util.List;
 public class ExamDTO {
 
     private String id;
-    private String name;
-    private String description;
-    private String recommendation;
-    private boolean isVaccine;
-    private List<String> countryList;
     private List<String> age;
+    private String bigDescription;
+    private List<String> countryList;
+    private String description;
+    private String familyBackground;
+    private boolean isVaccine;
+    private String name;
+    private String personalBackground;
+    private List<String> recommendation;
+    private List<String> sex;
 
 }

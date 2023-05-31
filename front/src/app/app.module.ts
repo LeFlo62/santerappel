@@ -14,6 +14,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CertifiedInfoComponent } from './components/certified-info/certified-info.component';
+import { InplaceModule } from 'primeng/inplace';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { CertifiedInfoComponent } from './components/certified-info/certified-in
     ButtonModule,
     SkeletonModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    InplaceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
