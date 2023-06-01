@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,15 +36,19 @@ public class ExamControllerTest {
     private ExamController examController;
 
     /**
-     * Tests {@link ExamController#getExams(Pageable)}
+     * Tests {@link ExamController#getExams(String, Pageable)}
      */
     @Test
     public void testGetExams() {
+        MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
 
         List<Exam> mockList = new ArrayList<>();
-        mockList.add(Exam.builder().name("Examen prostate").build());
-        mockList.add(Exam.builder().name("Examen vésicule biliaire").build());
-        when(examService.listExams(pageable)).thenReturn(mockList);
+        Exam exam1 = Exam.builder().name("Examen prostate").build();
+        Exam exam2 = Exam.builder().name("Examen vésicule biliaire").build();
+        mockList.add(exam1);
+        mockList.add(exam2);
+
+        when(examService.listExams(filters, pageable)).thenReturn(mockList);
 
         ExamDTO examDTO1 = ExamDTO.builder().name("Examen prostate").build();
         ExamDTO examDTO2 = ExamDTO.builder().name("Examen vésicule biliaire").build();
@@ -50,9 +56,10 @@ public class ExamControllerTest {
 
         when(examMapper.toDTO(mockList)).thenReturn(expectedDTOs);
 
-        ResponseEntity<List<ExamDTO>> response = examController.getExams(pageable);
+        ResponseEntity<List<ExamDTO>> response = examController.getExams(null, pageable);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedDTOs, response.getBody());
     }
+
 }

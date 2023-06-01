@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,26 +33,29 @@ public class ExamServiceTest {
     private ExamService examService;
 
     /**
-     * Tests {@link ExamService#listExams(Pageable)}
+     * Tests @link ExamService.listExams(MultiValueMap <String, String>, Pageable)
      */
     @Test
     public void listExamsTest() {
+        System.out.println("ExamServiceTest.listExamsTest");
+
+        MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
 
         List<Exam> mockList = new ArrayList<>();
         mockList.add(Exam.builder().name("Examen prostate").build());
         mockList.add(Exam.builder().name("Examen vésicule biliaire").build());
         mockList.add(Exam.builder().name("Examen thyroïde").build());
 
-
         Mockito.when(pageMock.getContent()).thenReturn(mockList);
-        Mockito.when(examRepository.findAll(Mockito.any(Pageable.class))).thenReturn(pageMock);
 
-        List<Exam> examListTest = examService.listExams(pageable);
+        Mockito.when(examRepository.filter(filters, pageable)).thenReturn(pageMock);
 
-        Assertions.assertThatList(examListTest).hasSize(mockList.size());
-        Assertions.assertThatList(examListTest).allMatch(mockList::contains);
+        List<Exam> examListTest = examService.listExams(filters, pageable);
 
-        Mockito.verify(examRepository).findAll(pageable);
+        Assertions.assertThat(examListTest).hasSize(mockList.size());
+        Assertions.assertThat(examListTest).allMatch(mockList::contains);
+
+        Mockito.verify(examRepository).filter(filters, pageable);
         Mockito.verify(pageMock).getContent();
     }
 }
