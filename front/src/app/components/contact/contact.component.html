@@ -1,0 +1,44 @@
+<div class="flex-container flex-column">
+  <h2 class="margin-bottom">Nos coordonnées</h2>
+  <p>Si vous avez des questions ou des demandes d'information, n'hésitez pas à nous contacter</p>
+  <p class="text-center">Adresse :
+    <br>28 Rue Notre Dame des Champs
+    <br>75006 Paris
+    <br>
+    <br>Téléphone :
+    <br>00 00 00 00 00
+  </p>
+  <p></p>
+</div>
+<div class="flex-container flex-center">
+  <div class="p-card">
+    <div class="field">
+      <h3 class="text-center">Formulaire de contact</h3>
+      <div class="flex-container space-between">
+        <div class="flex-item">
+          <label for="firstname">Prénom</label>
+          <input [(ngModel)]="firstname" id="firstname" pInputText type="text"/>
+        </div>
+        <div class="flex-item">
+          <label for="lastname">NOM</label>
+          <input [(ngModel)]="lastname" id="lastname" pInputText type="text"/>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="phone">Numéro de téléphone</label>
+      <input [(ngModel)]="phone" id="phone" pInputText type="text"/>
+    </div>
+    <div class="field">
+      <label for="subject">Sujet</label>
+      <input [(ngModel)]="subject" id="subject" pInputText type="text">
+    </div>
+    <div class="field">
+      <label for="content">Message</label>
+      <textarea [(ngModel)]="content" id="content" pInputTextarea></textarea>
+    </div>
+    <div class="card flex justify-content-center">
+      <button (click)="onSubmit()" label="Envoyer" pButton type="button"></button>
+    </div>
+  </div>
+</div>

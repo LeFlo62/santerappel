@@ -1,0 +1,43 @@
+<div class="container">
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Bienvenue sur Santé rappel</h1>
+      <p>Le carnet de santé en ligne qui vous aide à rester à jour</p>
+      <p-carousel [autoplayInterval]="5000" [circular]="true" [numScroll]="1" [numVisible]="1" [value]="quotes">
+        <ng-template let-quote pTemplate="item">
+          <div class="quote-card">
+            <p>{{ quote }}</p>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2>Des informations certifiées en quelques clics</h2>
+      <p>
+        Au cours de notre vie, nous avons tous des vaccins et examens médicaux à effectuer, qu'ils soient obligatoires
+        ou non.
+        Pourtant, il peut être difficile de se rappeler de tous ces actes médicaux importants.
+      </p>
+      <p>
+        Sante-Rappel est là pour vous aider. Notre plateforme propose un rappel personnalisé des vaccins et examens
+        médicaux à effectuer en fonction de votre âge, de votre sexe et de vos antécédents médicaux.
+        Nous regroupons toutes les informations nécessaires et les rendons facilement accessibles pour que vous puissiez
+        prendre soin de votre santé en toute simplicité.
+      </p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <h2>Fonctionnalités</h2>
+      <ul>
+        <li>Informations complètes sur les vaccins et examens</li>
+        <li>Interface conviviale et facile à naviguer</li>
+        <li>Préférences et filtres personnalisables</li>
+      </ul>
+    </div>
+  </section>
+</div>

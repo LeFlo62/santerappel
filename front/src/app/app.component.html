@@ -1,12 +1,25 @@
 <p-menubar [model]="menuBar" styleClass="app-menubar">
-    <ng-template pTemplate="start">
-        <img src="favicon.ico" height="40" class="mr-2" />
-    </ng-template>
-    <ng-template pTemplate="end">
-      <div class="certified-info" [routerLink]="'/certified-info'">
-        <p>Informations certifiées</p>
-        <img src="../assets/sante-publique.png" height="40" />
+  <ng-template pTemplate="start">
+    <div [routerLink]="'/welcome'" class="url">
+      <img class="mr-2" height="40" src="favicon.ico"/>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="url-list">
+      <div [routerLink]="'/questions-and-answers'" class="url">
+        <p>Foire Aux Questions</p>
       </div>
-    </ng-template>
-  </p-menubar>
+      <div [routerLink]="'/contact'" class="url">
+        <p>Contact</p>
+      </div>
+      <div [routerLink]="'/certified-info'" class="url">
+        <img height="40" src="../assets/sante-publique.png"/>
+      </div>
+    </div>
+  </ng-template>
+</p-menubar>
 <router-outlet></router-outlet>
+<div class="footer">
+  <p class="text-center">&copy; 2023 Sante-Rappel. Tous droits réservés.</p>
+  <div [routerLink]="'/certified-info'" class="link">Mentions Légales</div>
+</div>

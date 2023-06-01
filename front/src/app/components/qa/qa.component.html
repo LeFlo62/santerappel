@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="page-title">
+    <h1>Foire Aux Questions</h1>
+  </div>
+
+  <div class="introduction">
+    <p>Afin d'être le plus tranparent avec vous et vous fournir des informations scientifiques objectives, notre site
+      est à but non-lucratif et est financé par vos dons.</p>
+  </div>
+  <div class="image-section">
+    <img src="./assets/faq.png">
+  </div>
+
+  <div class="accordion-section">
+    <h2>Questions fréquentes</h2>
+    <p-accordion>
+      <p-accordionTab *ngFor="let question of questions" [header]="question.question" class="accordion-tab">
+        <div *ngFor="let answer of question.answers">
+          <p>{{answer}}</p>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>
