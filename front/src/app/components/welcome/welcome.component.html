@@ -32,12 +32,16 @@
 
   <section id="features">
     <div class="container">
-      <h2>Fonctionnalités</h2>
-      <ul>
-        <li>Informations complètes sur les vaccins et examens</li>
-        <li>Interface conviviale et facile à naviguer</li>
-        <li>Préférences et filtres personnalisables</li>
-      </ul>
+      <h2 class="text-center">Actualités</h2>
+      <p-carousel class="news" [value]="healthNews" [numVisible]="3" [numScroll]="3" [circular]="true">
+        <ng-template let-news pTemplate="item">
+          <p-card [header]="news.title" [subheader]="news.date">
+            <p>{{ news.content }}</p>
+          </p-card>
+        </ng-template>
+      </p-carousel>
+
+
     </div>
   </section>
 </div>
