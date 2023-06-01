@@ -1,7 +1,11 @@
 <div class="container">
     <div class="filters">
         <form [formGroup]="filters">
-            <p-multiSelect [options]="ages" formControlName="age" placeholder="Age" [showClear]="true" [filter]="true"></p-multiSelect>
+            <p-multiSelect [options]="ages" formControlName="age" placeholder="Age" [showClear]="true" [filter]="true">
+                <ng-template let-age pTemplate="item">
+                    {{age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'}}
+                </ng-template>
+            </p-multiSelect>
             <p-dropdown [options]="isVaccine" optionLabel="label" formControlName="vaccine" placeholder="Vaccin" [showClear]="true">
                 <ng-template pTemplate="selectedItem">
                     <div *ngIf="filters.value.vaccine">
