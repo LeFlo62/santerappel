@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
      * Tests {@link ExamMapper#toDTO(Exam)}
      */
     @Test
-    public void testToDTO() {
+    public void toDTOTest() {
         ExamMapper examMapper = new ExamMapper();
 
         when(exam.getName()).thenReturn("Exam");

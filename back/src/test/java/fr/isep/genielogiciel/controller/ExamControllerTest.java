@@ -39,7 +39,7 @@ public class ExamControllerTest {
      * Tests {@link ExamController#getExams(String, Pageable)}
      */
     @Test
-    public void testGetExams() {
+    public void getExamsTest() {
         MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
 
         List<Exam> mockList = new ArrayList<>();
