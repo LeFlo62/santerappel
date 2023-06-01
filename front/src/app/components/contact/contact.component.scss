@@ -1,0 +1,62 @@
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.flex-container.flex-column {
+  flex-direction: column;
+}
+
+.flex-container.space-between {
+  justify-content: space-between;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.flex-item {
+  width: 48%;
+}
+
+.form-width {
+  width: 680px;
+}
+
+.p-card {
+  box-sizing: border-box;
+  color: #495057;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+.p-card > div {
+  margin-bottom: 1rem;
+}
+
+.p-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.field > label {
+  margin-bottom: 0.5rem;
+}
+
+.field input[type="text"], .field textarea {
+  width: 100%;
+}
+
+h3 {
+  margin-block-start: 0px;
+}
+
+.p-card {
+  padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+  margin-bottom: 15px;
+}

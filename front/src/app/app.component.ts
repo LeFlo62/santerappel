@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import {Component} from '@angular/core';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,8 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
-  menuBar : MenuItem[] = [
-    {label: 'Accueil', icon: 'pi pi-fw pi-home', routerLink: ['/home']},
+
+  menuBar: MenuItem[] = [
+    {label: 'Mes examens et vaccins', icon: 'pi pi-calendar', routerLink: ['/home']},
   ];
-  
 }
