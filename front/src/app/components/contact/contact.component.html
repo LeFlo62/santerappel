@@ -12,33 +12,35 @@
 </div>
 <div class="flex-container flex-center">
   <div class="p-card">
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="field">
       <h3 class="text-center">Formulaire de contact</h3>
       <div class="flex-container space-between">
         <div class="flex-item">
           <label for="firstname">Prénom</label>
-          <input [(ngModel)]="firstname" id="firstname" pInputText type="text"/>
+          <input  formControlName="firstname" id="firstname" pInputText type="text"/>
         </div>
         <div class="flex-item">
           <label for="lastname">NOM</label>
-          <input [(ngModel)]="lastname" id="lastname" pInputText type="text"/>
+          <input  formControlName="lastname" id="lastname" pInputText type="text"/>
         </div>
       </div>
     </div>
     <div class="field">
       <label for="phone">Numéro de téléphone</label>
-      <input [(ngModel)]="phone" id="phone" pInputText type="text"/>
+      <input   formControlName="phone"  id="phone" pInputText type="text"/>
     </div>
     <div class="field">
       <label for="subject">Sujet</label>
-      <input [(ngModel)]="subject" id="subject" pInputText type="text">
+      <input id="subject" pInputText formControlName="subject"  type="text">
     </div>
     <div class="field">
       <label for="content">Message</label>
-      <textarea [(ngModel)]="content" id="content" pInputTextarea></textarea>
+      <textarea id="content" formControlName="content" pInputTextarea></textarea>
     </div>
     <div class="card flex justify-content-center">
-      <button (click)="onSubmit()" label="Envoyer" pButton type="button"></button>
+      <button label="Envoyer" pButton type="submit"></button>
     </div>
+    </form>
   </div>
 </div>
