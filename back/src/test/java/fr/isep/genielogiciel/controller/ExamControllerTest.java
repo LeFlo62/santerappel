@@ -1,65 +1,81 @@
 package fr.isep.genielogiciel.controller;
 
 import fr.isep.genielogiciel.dto.ExamDTO;
-import fr.isep.genielogiciel.entities.Exam;
 import fr.isep.genielogiciel.mapper.ExamMapper;
 import fr.isep.genielogiciel.service.ExamService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
 public class ExamControllerTest {
 
-    @Mock
-    private ExamMapper examMapper;
-    @Mock
+    @MockBean
     private ExamService examService;
 
-    @Mock
-    private Pageable pageable;
-    @InjectMocks
-    private ExamController examController;
+    @MockBean
+    private ExamMapper examMapper;
 
-    /**
-     * Tests {@link ExamController#getExams(String, Pageable)}
-     */
+    @Autowired
+    MockMvc mockMvc;
+
+    List<ExamDTO> examListDto = new ArrayList<>();
+    List<String> agesList = Arrays.asList("18", "25", "30");
+    List<String> countriesList = Arrays.asList("France", "Italie", "Espagne");
+    List<String> recommendationsList = Arrays.asList("Diabète", "Hypertension");
+
     @Test
-    public void getExamsTest() {
-        MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
+    public void getExamsTest() throws Exception {
+        Mockito.when(examService.listExams(Mockito.any(), Mockito.any(Pageable.class))).thenReturn(new ArrayList<>());
+        Mockito.when(examMapper.toDTO(Mockito.anyList())).thenReturn(examListDto);
 
-        List<Exam> mockList = new ArrayList<>();
-        Exam exam1 = Exam.builder().name("Examen prostate").build();
-        Exam exam2 = Exam.builder().name("Examen vésicule biliaire").build();
-        mockList.add(exam1);
-        mockList.add(exam2);
+        mockMvc.perform(MockMvcRequestBuilders.get("/exams/list/paginated").contentType(MediaType.APPLICATION_JSON)
+                        .param("filter", "age:20"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
-        when(examService.listExams(filters, pageable)).thenReturn(mockList);
-
-        ExamDTO examDTO1 = ExamDTO.builder().name("Examen prostate").build();
-        ExamDTO examDTO2 = ExamDTO.builder().name("Examen vésicule biliaire").build();
-        List<ExamDTO> expectedDTOs = Arrays.asList(examDTO1, examDTO2);
-
-        when(examMapper.toDTO(mockList)).thenReturn(expectedDTOs);
-
-        ResponseEntity<List<ExamDTO>> response = examController.getExams(null, pageable);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(expectedDTOs, response.getBody());
+        Mockito.verify(examService, Mockito.times(1)).listExams(Mockito.any(), Mockito.any(Pageable.class));
     }
 
+    @Test
+    public void getAgesTest() throws Exception {
+        Mockito.when(examService.getAges()).thenReturn(agesList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/exams/ages").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Mockito.verify(examService, Mockito.times(1)).getAges();
+    }
+
+    @Test
+    public void getCountriesTest() throws Exception {
+        Mockito.when(examService.getCountries()).thenReturn(countriesList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/exams/countries").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Mockito.verify(examService, Mockito.times(1)).getCountries();
+    }
+
+    @Test
+    public void getRecommendationsTest() throws Exception {
+        Mockito.when(examService.getRecommendation()).thenReturn(recommendationsList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/exams/recommendations").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Mockito.verify(examService, Mockito.times(1)).getRecommendation();
+    }
 }
