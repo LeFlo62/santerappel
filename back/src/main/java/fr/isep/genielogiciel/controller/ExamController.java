@@ -28,6 +28,7 @@ public class ExamController {
     @GetMapping("/list/paginated")
     public ResponseEntity<List<ExamDTO>> getExams(@RequestParam(value="filter", required = false) String filter, Pageable pageable) {
         MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
+        System.out.println(filter);
         if(filter != null){
             String[] entries = filter.split(",");
             for(int i = 0; i < entries.length; ++i){

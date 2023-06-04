@@ -83,17 +83,26 @@ export class HomeComponent {
         filterStr += "age:" + this.filters.value.age.join(",age:");
       }
 
+      if(filterStr.length > 0) filterStr += ",";
+
       if (this.filters.value.recommendation != null && this.filters.value.recommendation.length > 0) {
         filterStr += "recommendation:" + this.filters.value.recommendation.join(",recommendation:");
       }
+
+      
+      if(filterStr.length > 0) filterStr += ",";
 
       if (this.filters.value.sex != null && this.filters.value.sex.length > 0) {
         filterStr += "sex:" + this.filters.value.sex.join(",sex:");
       }
 
+      if(filterStr.length > 0) filterStr += ",";
+
       if (this.filters.value.vaccine != null) {
         filterStr += "isVaccine:" + this.filters.value.vaccine.value;
       }
+
+      if(filterStr.length > 0) filterStr += ",";
 
       if (this.filters.value.countries != null && this.filters.value.countries.length > 0) {
         filterStr += "countryList:" + this.filters.value.countries.join(",countryList:");
