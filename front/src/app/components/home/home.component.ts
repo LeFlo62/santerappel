@@ -61,7 +61,8 @@ export class HomeComponent {
     this.examService.getAges().subscribe((data : string[]) => {
       console.log(data);
       console.log(data.map(s => parseInt(s)));
-      this.ages = Array.from(new Set(data.map(s => parseInt(s)))).map((age : number) => { return { label: (age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'), value: age } }).sort((a, b) => a.value - b.value);
+      console.log(data.map(s => parseInt(s)).sort((a, b) => a - b));
+      this.ages = data.map(s => parseInt(s)).sort((a, b) => a - b).map((age : number) => { return { label: (age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'), value: age } });
     });
 
     this.examService.getCountries().subscribe((data : string[]) => {
