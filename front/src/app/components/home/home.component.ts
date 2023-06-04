@@ -58,11 +58,13 @@ export class HomeComponent {
 
   loadFilters() {
     this.examService.getAges().subscribe((data : string[]) => {
-      this.ages = data;
+      console.log(data);
+      console.log(data.map(s => parseInt(s)));
+      this.ages = data.map(s => parseInt(s)).sort().map((age : number) => { return { label: (age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'), value: age } });
     });
 
     this.examService.getCountries().subscribe((data : string[]) => {
-      this.countries = data;
+      this.countries = data.map((country : string) => { return { label: country, value: country } });
     });
 
     this.examService.getRecommendations().subscribe((data : any[]) => {
