@@ -28,7 +28,6 @@ public class ExamCustomRepositoryImpl implements ExamCustomRepository {
 
         Criteria criteria = new Criteria();
 
-        System.out.println(filter.toString());
         if(filter != null){
             for(String key : filter.keySet()){
                 criteria = criteria.and(key).in(filter.get(key));
