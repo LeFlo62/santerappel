@@ -58,12 +58,14 @@ export class HomeComponent {
   }
 
   loadFilters() {
-    this.examService.getAges().subscribe((data: string[]) => {
-      this.ages = data;
+    this.examService.getAges().subscribe((data : string[]) => {
+      console.log(data);
+      console.log(data.map(s => parseInt(s)));
+      this.ages = Array.from(new Set(data.map(s => parseInt(s)))).map((age : number) => { return { label: (age % 12 != 0 ? age + ' mois' : (age / 12) + ' ans'), value: age } }).sort((a, b) => a.value - b.value);
     });
 
-    this.examService.getCountries().subscribe((data: string[]) => {
-      this.countries = data;
+    this.examService.getCountries().subscribe((data : string[]) => {
+      this.countries = data.map((country : string) => { return { label: country, value: country } });
     });
 
     this.examService.getRecommendations().subscribe((data: any[]) => {

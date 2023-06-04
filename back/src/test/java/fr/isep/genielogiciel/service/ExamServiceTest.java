@@ -33,12 +33,10 @@ public class ExamServiceTest {
     private ExamService examService;
 
     /**
-     * Tests @link ExamService.listExams(MultiValueMap <String, String>, Pageable)
+     * Tests {@link ExamService#listExams(MultiValueMap, Pageable)}
      */
     @Test
-    public void listExamsTest() {
-        System.out.println("ExamServiceTest.listExamsTest");
-
+    public void listExams() {
         MultiValueMap<String, String> filters = new LinkedMultiValueMap<>();
 
         List<Exam> mockList = new ArrayList<>();
@@ -57,5 +55,56 @@ public class ExamServiceTest {
 
         Mockito.verify(examRepository).filter(filters, pageable);
         Mockito.verify(pageMock).getContent();
+    }
+
+    /**
+     * Tests {@link ExamService#getAges()}
+     */
+    @Test
+    public void getAges(){
+        List<String> mock = List.of("12", "24", "32");
+
+        Mockito.when(examRepository.findDistinctAge()).thenReturn(mock);
+
+        List<String> test = examService.getAges();
+
+        Assertions.assertThat(test).hasSize(mock.size());
+        Assertions.assertThat(test).allMatch(mock::contains);
+
+        Mockito.verify(examRepository).findDistinctAge();
+    }
+
+    /**
+     * Tests {@link ExamService#getCountries()}
+     */
+    @Test
+    public void getCountries(){
+        List<String> mock = List.of("France", "Inde", "Canada");
+
+        Mockito.when(examRepository.findDistinctCountryNames()).thenReturn(mock);
+
+        List<String> test = examService.getCountries();
+
+        Assertions.assertThat(test).hasSize(mock.size());
+        Assertions.assertThat(test).allMatch(mock::contains);
+
+        Mockito.verify(examRepository).findDistinctCountryNames();
+    }
+
+    /**
+     * Tests {@link ExamService#getRecommendation()}
+     */
+    @Test
+    public void getRecommendation(){
+        List<String> mock = List.of("Enfant", "Grossesse");
+
+        Mockito.when(examRepository.findDistinctRecommendation()).thenReturn(mock);
+
+        List<String> test = examService.getRecommendation();
+
+        Assertions.assertThat(test).hasSize(mock.size());
+        Assertions.assertThat(test).allMatch(mock::contains);
+
+        Mockito.verify(examRepository).findDistinctRecommendation();
     }
 }
